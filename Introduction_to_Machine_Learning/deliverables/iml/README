@@ -1,0 +1,13 @@
+1. Install the dependencies
+
+pip install -r requirements.txt
+
+2. Run each python file or run the notebooks.
+
+python clustering_numerical.py
+
+or
+
+jupyter notebook
+
+

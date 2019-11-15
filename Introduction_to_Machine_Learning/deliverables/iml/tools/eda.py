@@ -12,7 +12,7 @@ from sklearn.preprocessing import LabelEncoder
 def split(df, cat_features=None, response='class'):
     # Split up dataset into features (X) and response variable (y)
     df = df.copy()
-    X = df.loc[:, df.columns != response]
+    X = df.loc[:, df.columns != response].copy()
 
     num_features = []
     if cat_features is not None:
@@ -22,9 +22,9 @@ def split(df, cat_features=None, response='class'):
 
     df[num_features] = df[num_features].astype(float)
     # df[self.response] = df[self.response].astype(str).str.decode("utf-8").copy()
-    df[response] = df[response].str.decode("utf-8")
+    df[response] = df[response].str.decode("utf-8").copy()
     try:
-        df[response] = df[response].astype('int')
+        df[response] = df[response].astype('int').copy()
     except:
         encoder = LabelEncoder()
         df.loc[:, response] = encoder.fit_transform(df[response])
@@ -34,9 +34,9 @@ def split(df, cat_features=None, response='class'):
         for col in df[cat_features]:
             df[col] = df[col]
         # df[cat_features] = df[cat_features].str.decode("utf-8").copy()
-        df[cat_features] = df[cat_features].astype(int)
+        df[cat_features] = df[cat_features].astype(int).copy()
 
-        X[cat_features] = df[cat_features]
+        X[cat_features] = df[cat_features].copy()
 
     X[num_features] = df[num_features]
     y = df[response]
@@ -55,9 +55,9 @@ def split(df, cat_features=None, response='class'):
     metadata["dtypes"] = df.dtypes.to_dict()
 
     X = X.copy()
-    X_num = X[num_features]
+    X_num = X[num_features].copy()
     if cat_features is not None:
-        X_cat = X[cat_features]
+        X_cat = X[cat_features].copy()
     else:
         X_cat = None
 

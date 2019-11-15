@@ -12,11 +12,9 @@ from sklearn.preprocessing import LabelEncoder
 def split(df, cat_features=None, response='class'):
     # Split up dataset into features (X) and response variable (y)
     df = df.copy()
-<<<<<<< HEAD
-    X = df.loc[:, df.columns != response]
-=======
+
     X = df.loc[:, df.columns != response].copy()
->>>>>>> new_master
+
 
     num_features = []
     if cat_features is not None:
@@ -26,15 +24,11 @@ def split(df, cat_features=None, response='class'):
 
     df[num_features] = df[num_features].astype(float)
     # df[self.response] = df[self.response].astype(str).str.decode("utf-8").copy()
-<<<<<<< HEAD
-    df[response] = df[response].str.decode("utf-8")
-    try:
-        df[response] = df[response].astype('int')
-=======
+
     df[response] = df[response].str.decode("utf-8").copy()
     try:
         df[response] = df[response].astype('int').copy()
->>>>>>> new_master
+
     except:
         encoder = LabelEncoder()
         df.loc[:, response] = encoder.fit_transform(df[response])
@@ -44,15 +38,11 @@ def split(df, cat_features=None, response='class'):
         for col in df[cat_features]:
             df[col] = df[col]
         # df[cat_features] = df[cat_features].str.decode("utf-8").copy()
-<<<<<<< HEAD
-        df[cat_features] = df[cat_features].astype(int)
 
-        X[cat_features] = df[cat_features]
-=======
         df[cat_features] = df[cat_features].astype(int).copy()
 
         X[cat_features] = df[cat_features].copy()
->>>>>>> new_master
+
 
     X[num_features] = df[num_features]
     y = df[response]
@@ -71,15 +61,11 @@ def split(df, cat_features=None, response='class'):
     metadata["dtypes"] = df.dtypes.to_dict()
 
     X = X.copy()
-<<<<<<< HEAD
-    X_num = X[num_features]
-    if cat_features is not None:
-        X_cat = X[cat_features]
-=======
+
     X_num = X[num_features].copy()
     if cat_features is not None:
         X_cat = X[cat_features].copy()
->>>>>>> new_master
+
     else:
         X_cat = None
 
@@ -160,3 +146,19 @@ def analyze_cat(X_cat=None, fig_size=(5, 5)):
         print(pd.DataFrame(d).to_string(index=False))
         print('-' * 30)
 
+        
+def cum_variance(variances):
+    cum_var_exp = np.cumsum(variances)*100
+
+    # Compute the cumulative explained variance
+    x = np.linspace(0,len(variances)-1,len(variances)-1)
+    y1 = [90 for i in range(len(variances)-1)]
+    y2 = [80 for i in range(len(variances)-1)]
+    y3 = [60 for i in range(len(variances)-1)]
+    plt.plot(cum_var_exp,label='Cumulative explained variance')
+    plt.plot(x,y1,linestyle = ':', color='b',label='90% Explained variance')
+    plt.plot(x,y2,linestyle = ':', color='g',label='80% Explained variance')
+    plt.plot(x,y3,linestyle = ':', color='y',label='60% Explained variance')
+    plt.title('Cumulative explained variance as a function of the num of components')
+    plt.legend(loc='lower right')
+    plt.show()

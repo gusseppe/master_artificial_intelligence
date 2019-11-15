@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9b28726d-4a7b-40e6-9f1a-1c1b88db61c5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/dataset/2nd_test.zip" beforeDir="false" />
-    </list>
+    <list default="true" id="9b28726d-4a7b-40e6-9f1a-1c1b88db61c5" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +47,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1573811873054</updated>
-      <workItem from="1573811878107" duration="587000" />
+      <workItem from="1573811878107" duration="2070000" />
     </task>
     <servers />
   </component>

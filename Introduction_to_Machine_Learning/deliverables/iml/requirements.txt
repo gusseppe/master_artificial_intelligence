@@ -4,7 +4,4 @@ pandas==0.25.3
 scikit-learn==0.21.3
 scipy==1.3.1
 seaborn==0.9.0
-<<<<<<< HEAD
-=======
 neupy
->>>>>>> new_master

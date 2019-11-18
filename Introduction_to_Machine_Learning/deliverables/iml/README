@@ -4,10 +4,10 @@ pip install -r requirements.txt
 
 2. Run each python file or run the notebooks.
 
-python clustering_numerical.py
+- work 1: python work1/clustering_categorical.py
 
-or
+- work 2: python work2/mixed.py
 
-jupyter notebook
+
 
 

@@ -1,0 +1,15 @@
+numpy
+pandas
+tarfile
+pytorch
+nltk
+xgboost
+hyperopt
+sklearn
+hpsklearn
+auto-sklearn
+deap
+update_checker
+tqdm
+stopit
+tpot

@@ -13,3 +13,5 @@ update_checker
 tqdm
 stopit
 tpot
+tensorflow
+tensorflow-hub

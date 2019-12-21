@@ -67,10 +67,11 @@ def clean_sick(df):
     X_num = X_num.fillna(X_num.mean())
     # Outliers
     # print(f'# Samples before removing outliers: {len(X_num)}')
-    # rows_to_remove = (np.abs(stats.zscore(X_num)) < 3).all(axis=1)
-    # X_num = X_num[rows_to_remove].copy()
+    rows_to_remove = (np.abs(stats.zscore(X_num)) < 3).all(axis=1)
+    X_num = X_num[rows_to_remove].copy()
     # print(f'# Samples after removing outliers: {len(X_num)}')
-    y = splits['y'][response].values
+    # y = splits['y'][response].values
+    y = splits['y'][rows_to_remove][response].values
 
     # Scaling
     X_num_scaled = prep.scale(X_num)

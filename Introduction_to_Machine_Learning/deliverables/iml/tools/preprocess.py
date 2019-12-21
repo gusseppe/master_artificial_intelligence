@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from tools.eda import cat_levels
 from sklearn.decomposition import PCA
+from sklearn.preprocessing import OneHotEncoder
 
 
 def scale(X_num):
@@ -15,7 +16,7 @@ def scale(X_num):
     return X_num_scaled
 
 
-def encode(X_cat):
+def encode2(X_cat):
     binary_cat_features = []
     cat_value_counts = cat_levels(X_cat)
 
@@ -36,6 +37,19 @@ def encode(X_cat):
     X_cat_encoded = pd.get_dummies(X_cat, columns=rest_cat_features)
 
     return X_cat_encoded
+
+
+def encode(X_cat, encoder=None):
+
+    if encoder is None:
+        oh_encoder = OneHotEncoder(handle_unknown='ignore', sparse=False)
+        oh_encoder.fit(X_cat)
+    else:
+        oh_encoder = encoder
+
+    X_cat_encoded = oh_encoder.transform(X_cat)
+
+    return X_cat_encoded, oh_encoder
 
 
 def join_features(X_num, X_cat):

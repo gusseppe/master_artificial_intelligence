@@ -20,7 +20,7 @@ def encode(X_cat):
     cat_value_counts = cat_levels(X_cat)
 
     for k, v in cat_value_counts.items():
-        print(f'Feature: {k:20} | # categories: {v.count()}')
+#         print(f'Feature: {k:20} | # categories: {v.count()}')
         if v.count() == 2:
             binary_cat_features.append(k)
 
@@ -44,10 +44,9 @@ def join_features(X_num, X_cat):
     return X_total
 
 
-
-def get_components(X, n_components=0.9):
-    pca = PCA(n_components=0.9)
-    X_pca = pca.fit_transform(X.values)
+def graph_components(X, n_components=0.9):
+    pca = PCA(n_components=n_components)
+    X_pca = pca.fit_transform(X)
 
     list_components = list(range(pca.n_components_))
     plt.bar(list_components, pca.explained_variance_ratio_)
@@ -55,7 +54,14 @@ def get_components(X, n_components=0.9):
     plt.ylabel('Variance %')
     plt.xticks(list_components)
 
-    X_pca = pd.DataFrame(X_pca)
+    # X_pca = pd.DataFrame(X_pca)
     
-    return X_pca
-# X_pca.head()
+
+def binning(X, n_classes=3):
+    X = X.copy()
+    for col in X.columns:
+        X[col] = pd.cut(X[col], bins=n_classes, labels=range(n_classes))
+        X[col] = X[col].astype(int)
+        # X[col] = pd.qcut(X[col], q=n_classes, labels=range(n_classes))
+
+    return X

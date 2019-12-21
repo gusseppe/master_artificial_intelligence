@@ -20,15 +20,16 @@ def encode(X_cat):
     cat_value_counts = cat_levels(X_cat)
 
     for k, v in cat_value_counts.items():
-        print(f'Feature: {k:20} | # categories: {v.count()}')
+#         print(f'Feature: {k:20} | # categories: {v.count()}')
         if v.count() == 2:
             binary_cat_features.append(k)
 
-    print()
-    print(f'Binary cat_features: {binary_cat_features}')
-    rest_cat_features = [cf for cf in list(X_cat.columns) if cf not in binary_cat_features]
+    # print()
+    # print(f'Binary cat_features: {binary_cat_features}')
+    # rest_cat_features = [cf for cf in list(X_cat.columns) if cf not in binary_cat_features]
+    rest_cat_features = [cf for cf in list(X_cat.columns)]
     # rest_cat_features = list(set(X_cat.columns)-set(binary_cat_features))
-    print(f'Remaining cat_features: {rest_cat_features}')
+    # print(f'Remaining cat_features: {rest_cat_features}')
 
     # One hot encoding
 
@@ -39,7 +40,7 @@ def encode(X_cat):
 
 def join_features(X_num, X_cat):
     X_total = pd.concat([X_num, X_cat], axis=1)
-    print(f'# Total features: {len(X_total.columns)}')
+    # print(f'# Total features: {len(X_total.columns)}')
 
     return X_total
 

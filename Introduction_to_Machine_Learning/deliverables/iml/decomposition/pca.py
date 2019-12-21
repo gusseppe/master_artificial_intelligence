@@ -18,7 +18,7 @@ class PCA:
     def _fit(self, X, y=None):
         cov_matrix = np.cov(X.T)
         eigenvalues, eigenvectors = np.linalg.eig(cov_matrix)
-        eigen_sorted = sorted(zip(eigenvalues, eigenvectors),
+        eigen_sorted = sorted(zip(eigenvalues, eigenvectors), # Change to columns
                               key=lambda x: x[0], reverse=True)
         self.W = np.hstack(tuple(eigen[1][:, np.newaxis]
                                  for eigen in eigen_sorted[:self.n_components]))

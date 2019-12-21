@@ -28,10 +28,12 @@ def split(df, cat_features=None, response='class'):
     df[response] = df[response].str.decode("utf-8").copy()
     try:
         df[response] = df[response].astype('int').copy()
+        encoder_response = None
 
     except:
-        encoder = LabelEncoder()
-        df.loc[:, response] = encoder.fit_transform(df[response])
+        encoder_response = LabelEncoder()
+        encoder_response.fit(df[response])
+        df.loc[:, response] = encoder_response.transform(df[response])
 
     if cat_features is not None:
         df[cat_features] = df[cat_features].stack().str.decode('utf-8').unstack()
@@ -39,7 +41,10 @@ def split(df, cat_features=None, response='class'):
             df[col] = df[col]
         # df[cat_features] = df[cat_features].str.decode("utf-8").copy()
 
-        df[cat_features] = df[cat_features].astype(int).copy()
+        try:
+            df[cat_features] = df[cat_features].astype(int).copy()
+        except:
+            pass
 
         X[cat_features] = df[cat_features].copy()
 
@@ -70,7 +75,8 @@ def split(df, cat_features=None, response='class'):
         X_cat = None
 
     splits = {'X': X, 'y': y,
-              'X_num': X_num, 'X_cat': X_cat }
+              'X_num': X_num, 'X_cat': X_cat,
+              'encoder_response':  encoder_response}
 
     return splits, metadata
 

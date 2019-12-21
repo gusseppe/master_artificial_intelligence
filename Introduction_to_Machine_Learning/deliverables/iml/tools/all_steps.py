@@ -41,3 +41,48 @@ def clean_cmc(df):
     X_cat_encoded = prep.encode(X_cat)
 
     return X_num_scaled, X_cat_encoded, y
+
+def clean_sick(df):
+
+    """
+        Clean mixed data: cmc.
+    """
+
+    cat_features = ['sex', 'on_thyroxine',
+                    'query_on_thyroxine', 'on_antithyroid_medication',
+                    'sick', 'pregnant', 'thyroid_surgery', 'I131_treatment',
+                    'query_hypothyroid', 'query_hyperthyroid', 'lithium',
+                    'goitre', 'tumor', 'hypopituitary', 'psych',
+                    'TSH_measured', 'T3_measured', 'TT4_measured',
+                    'T4U_measured', 'FTI_measured', 'TBG_measured',
+                    'referral_source'] # for sick dataset
+    response = 'Class' # for sick dataset
+    splits, metadata = eda.split(df, cat_features=cat_features,
+                                 response=response)
+    X_num = splits['X_num']
+    X_cat = splits['X_cat']
+
+    # Drop columns with many nan
+    X_num.drop(['TBG'], axis=1, inplace=True)
+    X_num = X_num.fillna(X_num.mean())
+    # Outliers
+    # print(f'# Samples before removing outliers: {len(X_num)}')
+    # rows_to_remove = (np.abs(stats.zscore(X_num)) < 3).all(axis=1)
+    # X_num = X_num[rows_to_remove].copy()
+    # print(f'# Samples after removing outliers: {len(X_num)}')
+    y = splits['y'][response].values
+
+    # Scaling
+    X_num_scaled = prep.scale(X_num)
+
+    # Removing categ. levels
+    # X_cat = X_cat[rows_to_remove].copy()
+    pd.options.mode.chained_assignment = None
+
+    # X_cat.loc[X_cat['heducation'] == 1, 'heducation'] = 2
+    # X_cat.loc[X_cat['hoccupation'] == 4, 'hoccupation'] = 3
+
+    # Encoding
+    X_cat_encoded = prep.encode(X_cat)
+
+    return X_num_scaled, X_cat_encoded, y
